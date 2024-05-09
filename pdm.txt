@@ -1,0 +1,90 @@
+dependencias a nivel de modulo gralde:
+ buildFeatures{
+        viewBinding=true
+    }
+dependencias para navigation component
+
+dependencies {
+    val nav_version="2.5.3"
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+    implementation("androidx.core:core-ktx:1.12.0")
+   
+}
+plugin para el navigation component
+plugins {
+
+    id("androidx.navigation.safeargs.kotlin")
+
+
+}
+
+dependencias a nivel de proyecto de gradle
+buildscript {
+    repositories {
+        google()
+    }
+    dependencies {
+        val nav_version = "2.5.3"
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
+    }
+}
+
+binding en los fragmentos
+private var _binding:FragmentFragmentoInicioBinding?=null
+    private val binding get() = _binding!!
+
+
+ _binding=FragmentFragmentoInicioBinding.inflate(inflater,container,false)
+        return binding.root
+
+binding en activitymain
+private lateinit var binding:ActivityMainBinding
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding=ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+    }
+
+
+navegar de una fragmento a otro
+ val datos=FragmentoInicioDirections.actionFragmentoInicio4ToFragmentSegundo(getString(R.string.hamburguesa))
+            findNavController().navigate(datos)
+
+recuperar los argumentos
+private val argumentos:FragmentSegundoArgs by navArgs()
+
+mostrar el texto con modificadores <string name="pedido_confirmacion">Pedido: %d x %s</string>
+binding.textoEncabezado.text=getString(R.string.detalles_titulo,argumentos.producto)
+
+
+intent implicito par mostrar eleccion de mensajeria
+val sendIntent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, "textMessage")
+                type = "text/plain"
+            }
+            if (context?.let { it1 -> sendIntent.resolveActivity(it1.packageManager) } != null) {
+                startActivity(sendIntent)
+            }
+        }
+
+detruir el fragmento
+ override fun onDestroy() {
+        super.onDestroy()
+        _binding=null
+    }
+
+intrnt explicito
+val intem: Intent = Intent(this, IntemActivity::class.java).also {
+                it.putExtra(FULL_NAME_KEY,texto)
+                startActivity(it)
+            }
+cambiar imagen en tiempo de ejecucion
+val Imagen=findViewById(R.id.imageView2)
+Imagen.setImageResource(R.drawable.nombre_imagen)
+
+5540 1451 0960 4776
+03 2029
+975
